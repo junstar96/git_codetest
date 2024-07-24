@@ -3,19 +3,47 @@ import heapq
 
 test_case = int(input())
 
-heap = []
+class heap_min_max:
+
+    def __init__(heap_check):
+        heap_check.heap_min = []
+        heap_check.heap_max = []
+
+    def push_min(heap_check, n):
+        heapq.heappush(heap_check.heap_min, n)
+
+
+    def push_max(heap_check,n):
+        heapq.heappush(heap_check.heap_max, -n)
+
+
+    def pop_min(heap_check):
+        check = heapq.heappop(heap_check.heap_min)
+        return check
+
+    def pop_max(heap_check):
+        check = -heapq.heappop(heap_check.heap_max)
+        return check
+
+    def len_max(heap_check):
+        return len(heap_check.heap_max)
+
+    def len_min(heap_check):
+        return len(heap_check.heap_min)
+
+    def print_max(heap_check):
+        print(heap_check.heap_max)
+
+checking = heap_min_max()
 
 for i in range(test_case):
-    #x = int(input()) : 이러면 시간 초과함
     x = int(sys.stdin.readline())
 
     if x == 0:
-        if len(heap) == 0:
+        if checking.len_max() == 0:
             print(0)
         else:
-            print(-heapq.heappop(heap))
+            print(checking.pop_max())
     else:
-        heapq.heappush(heap,-x)
-        print(heap)
-
-
+        checking.push_max(x)
+        checking.print_max()
